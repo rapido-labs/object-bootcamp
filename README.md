@@ -13,3 +13,10 @@ As a driver
 I want to unpark my car
 So that I can go home 
 ```
+
+### Problem Statement 3
+```
+As a Parking lot owner
+I want to know when the lot is full 
+So that I can put out the full sign
+```
