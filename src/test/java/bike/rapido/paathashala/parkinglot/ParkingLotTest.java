@@ -14,4 +14,37 @@ public class ParkingLotTest {
 
         assertThat(parkedSuccessfully, is(true));
     }
+
+    @Test
+    public void shouldUnparkMyCar() {
+        Car car = new Car();
+        ParkingLot parkingLot = new ParkingLot();
+        parkingLot.park(car);
+
+        boolean unparkedSuccessfully = parkingLot.unpark(car);
+
+        assertThat(unparkedSuccessfully, is(true));
+    }
+
+    @Test
+    public void shouldNotBeAbleToUnparkACarWhichWasNeverParked() {
+        Car car = new Car();
+        ParkingLot parkingLot = new ParkingLot();
+
+        boolean unparkedSuccessfully = parkingLot.unpark(car);
+
+        assertThat(unparkedSuccessfully, is(false));
+    }
+
+    @Test
+    public void shouldNotBeAbleToParkTheSameCarTwiceWithOutUnparking() {
+        Car car = new Car();
+        ParkingLot parkingLot = new ParkingLot();
+
+        boolean parked = parkingLot.park(car);
+        assertThat(parked, is(true));
+
+        boolean parkedAgain = parkingLot.park(car);
+        assertThat(parkedAgain, is(false));
+    }
 }
