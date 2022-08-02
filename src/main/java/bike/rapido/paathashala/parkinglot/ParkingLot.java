@@ -7,12 +7,14 @@ public class ParkingLot {
     private final HashSet<Car> parkedCars;
     private final int capacity;
     private final ParkingLotOwner lotOwner;
+    private final SecurityPerson securityPerson;
 
-    public ParkingLot(int capacity, ParkingLotOwner lotOwner) {
+    public ParkingLot(int capacity, ParkingLotOwner lotOwner, SecurityPerson securityPerson) {
         parkedCars = new HashSet<>(capacity);
 
         this.capacity = capacity;
         this.lotOwner = lotOwner;
+        this.securityPerson = securityPerson;
     }
 
     public boolean park(Car car) {
@@ -31,6 +33,7 @@ public class ParkingLot {
     private void notifyOwnerIfLotIsFull() {
         if (isLotFull()) {
             lotOwner.notifyLotFull();
+            securityPerson.notifyLotFull();
         }
     }
 
