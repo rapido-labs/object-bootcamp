@@ -1,26 +1,27 @@
 package bike.rapido.paathashala.parkinglot;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public class ParkingLot {
 
     private final HashSet<Car> parkedCars;
-    private final int capacity;
-    private final ParkingLotOwner lotOwner;
-    private final SecurityPerson securityPerson;
+    private final List<ParkingLotObserver> lotObservers;
 
-    public ParkingLot(int capacity, ParkingLotOwner lotOwner, SecurityPerson securityPerson) {
+    private final int capacity;
+
+    public ParkingLot(int capacity) {
         parkedCars = new HashSet<>(capacity);
+        lotObservers = new ArrayList<>();
 
         this.capacity = capacity;
-        this.lotOwner = lotOwner;
-        this.securityPerson = securityPerson;
     }
 
     public boolean park(Car car) {
         if (hasFreeSlots() && isCarNotParkedAlready(car)) {
             parkedCars.add(car);
-            notifyOwnerIfLotIsFull();
+            notifyAllObserversIfLotFull();
             return true;
         }
         return false;
@@ -30,10 +31,11 @@ public class ParkingLot {
         return !parkedCars.contains(car);
     }
 
-    private void notifyOwnerIfLotIsFull() {
+    private void notifyAllObserversIfLotFull() {
         if (isLotFull()) {
-            lotOwner.notifyLotFull();
-            securityPerson.notifyLotFull();
+            for (ParkingLotObserver lotObserver : lotObservers) {
+                lotObserver.notifyLotFull();
+            }
         }
     }
 
@@ -47,5 +49,9 @@ public class ParkingLot {
 
     public boolean unpark(Car car) {
         return parkedCars.remove(car);
+    }
+
+    public void register(ParkingLotObserver observer) {
+        lotObservers.add(observer);
     }
 }

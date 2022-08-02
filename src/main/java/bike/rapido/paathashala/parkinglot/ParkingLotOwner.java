@@ -1,6 +1,6 @@
 package bike.rapido.paathashala.parkinglot;
 
-public class ParkingLotOwner {
+public class ParkingLotOwner implements ParkingLotObserver {
     private boolean lotFull;
 
     public boolean isLotFull() {

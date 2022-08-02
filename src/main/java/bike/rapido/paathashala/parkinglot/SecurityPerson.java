@@ -1,6 +1,6 @@
 package bike.rapido.paathashala.parkinglot;
 
-public class SecurityPerson {
+public class SecurityPerson implements ParkingLotObserver {
 
     private boolean lotFull;
 
@@ -8,6 +8,7 @@ public class SecurityPerson {
         return lotFull;
     }
 
+    @Override
     public void notifyLotFull() {
         this.lotFull = true;
     }

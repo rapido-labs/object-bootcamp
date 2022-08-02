@@ -20,7 +20,7 @@ public class ParkingLotTest {
     @Test
     public void shouldParkMyCar() {
         Car car = new Car();
-        boolean parkedSuccessfully = new ParkingLot(5, lotOwner, securityPerson).park(car);
+        boolean parkedSuccessfully = new ParkingLot(5).park(car);
 
         assertThat(parkedSuccessfully, is(true));
     }
@@ -28,7 +28,7 @@ public class ParkingLotTest {
     @Test
     public void shouldUnparkMyCar() {
         Car car = new Car();
-        ParkingLot parkingLot = new ParkingLot(5, lotOwner, securityPerson);
+        ParkingLot parkingLot = new ParkingLot(5);
         parkingLot.park(car);
 
         boolean unparkedSuccessfully = parkingLot.unpark(car);
@@ -39,7 +39,7 @@ public class ParkingLotTest {
     @Test
     public void shouldNotBeAbleToUnparkACarWhichWasNeverParked() {
         Car car = new Car();
-        ParkingLot parkingLot = new ParkingLot(5, lotOwner, securityPerson);
+        ParkingLot parkingLot = new ParkingLot(5);
 
         boolean unparkedSuccessfully = parkingLot.unpark(car);
 
@@ -49,7 +49,7 @@ public class ParkingLotTest {
     @Test
     public void shouldNotBeAbleToParkTheSameCarTwiceWithOutUnparking() {
         Car car = new Car();
-        ParkingLot parkingLot = new ParkingLot(5, lotOwner, securityPerson);
+        ParkingLot parkingLot = new ParkingLot(5);
 
         boolean parked = parkingLot.park(car);
         assertThat(parked, is(true));
@@ -61,7 +61,8 @@ public class ParkingLotTest {
     @Test
     public void shouldLetParkingLotOwnerKnowWhenLotIsFull() {
         ParkingLotOwner lotOwner = new ParkingLotOwner();
-        ParkingLot parkingLot = new ParkingLot(1, lotOwner, securityPerson);
+        ParkingLot parkingLot = new ParkingLot(1);
+        parkingLot.register(lotOwner);
         Car car = new Car();
 
         boolean parked = parkingLot.park(car);
@@ -73,7 +74,9 @@ public class ParkingLotTest {
     @Test
     public void shouldNotLetOwnerKnowWhenCarIsParkedAndStillHasMoreFreeSlots() {
         ParkingLotOwner lotOwner = new ParkingLotOwner();
-        ParkingLot parkingLot = new ParkingLot(5, lotOwner, securityPerson);
+        ParkingLot parkingLot = new ParkingLot(5);
+        parkingLot.register(lotOwner);
+
         Car car = new Car();
 
         boolean parked = parkingLot.park(car);
@@ -84,7 +87,8 @@ public class ParkingLotTest {
 
     @Test
     public void shouldLetSecurityPersonKnowWhenLotIsFull() {
-        ParkingLot parkingLot = new ParkingLot(1, new ParkingLotOwner(), securityPerson);
+        ParkingLot parkingLot = new ParkingLot(1);
+        parkingLot.register(securityPerson);
         Car car = new Car();
 
         boolean parked = parkingLot.park(car);
@@ -95,7 +99,8 @@ public class ParkingLotTest {
 
     @Test
     public void shouldNotLetSecurityPersonKnowWhenLotIsNotFilled() {
-        ParkingLot parkingLot = new ParkingLot(5, new ParkingLotOwner(), securityPerson);
+        ParkingLot parkingLot = new ParkingLot(5);
+        parkingLot.register(securityPerson);
         Car car = new Car();
 
         boolean parked = parkingLot.park(car);
