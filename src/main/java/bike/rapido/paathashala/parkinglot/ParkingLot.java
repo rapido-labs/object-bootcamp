@@ -20,11 +20,15 @@ public class ParkingLot {
 
     public boolean park(Car car) {
         if (hasFreeSlots() && isCarNotParkedAlready(car)) {
-            parkedCars.add(car);
+            parkCar(car);
             notifyAllObserversIfLotFull();
             return true;
         }
         return false;
+    }
+
+    private void parkCar(Car car) {
+        parkedCars.add(car);
     }
 
     private boolean isCarNotParkedAlready(Car car) {
