@@ -8,15 +8,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ParkingLotTest {
 
-    private ParkingLotOwner lotOwner;
-    private SecurityPerson securityPerson;
-
-    @Before
-    public void setUp() {
-        lotOwner = new ParkingLotOwner();
-        securityPerson = new SecurityPerson();
-    }
-
     @Test
     public void shouldParkMyCar() {
         Car car = new Car();
@@ -88,6 +79,7 @@ public class ParkingLotTest {
     @Test
     public void shouldLetSecurityPersonKnowWhenLotIsFull() {
         ParkingLot parkingLot = new ParkingLot(1);
+        SecurityPerson securityPerson = new SecurityPerson();
         parkingLot.register(securityPerson);
         Car car = new Car();
 
@@ -100,6 +92,7 @@ public class ParkingLotTest {
     @Test
     public void shouldNotLetSecurityPersonKnowWhenLotIsNotFilled() {
         ParkingLot parkingLot = new ParkingLot(5);
+        SecurityPerson securityPerson = new SecurityPerson();
         parkingLot.register(securityPerson);
         Car car = new Car();
 
