@@ -1,63 +1,66 @@
 package bike.rapido.paathashala.parkinglot;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 
 public class ParkingLotNotificationsTest {
 
 
     @Test
     public void shouldLetParkingLotOwnerKnowWhenLotIsFull() {
-        ParkingLotOwner lotOwner = new ParkingLotOwner();
+        ParkingLotOwner parkingLotOwnerMock = Mockito.mock(ParkingLotOwner.class);
         ParkingLot parkingLot = new ParkingLot(1);
-        parkingLot.register(lotOwner);
+        parkingLot.register(parkingLotOwnerMock);
         Car car = new Car();
 
         boolean parked = parkingLot.park(car);
 
         assertThat(parked, is(true));
-        assertThat(lotOwner.isLotFull(), is(true));
+        verify(parkingLotOwnerMock).notifyLotFull();
     }
 
     @Test
     public void shouldNotLetOwnerKnowWhenCarIsParkedAndStillHasMoreFreeSlots() {
-        ParkingLotOwner lotOwner = new ParkingLotOwner();
+        ParkingLotOwner parkingLotOwnerMock = Mockito.mock(ParkingLotOwner.class);
         ParkingLot parkingLot = new ParkingLot(5);
-        parkingLot.register(lotOwner);
+        parkingLot.register(parkingLotOwnerMock);
 
         Car car = new Car();
 
         boolean parked = parkingLot.park(car);
 
         assertThat(parked, is(true));
-        assertThat(lotOwner.isLotFull(), is(false));
+        verify(parkingLotOwnerMock, never()).notifyLotFull();
     }
 
     @Test
     public void shouldLetSecurityPersonKnowWhenLotIsFull() {
         ParkingLot parkingLot = new ParkingLot(1);
-        SecurityPerson securityPerson = new SecurityPerson();
-        parkingLot.register(securityPerson);
+        SecurityPerson securityPersonMock = Mockito.mock(SecurityPerson.class);
+        parkingLot.register(securityPersonMock);
         Car car = new Car();
 
         boolean parked = parkingLot.park(car);
 
         assertThat(parked, is(true));
-        assertThat(securityPerson.isLotFull(), is(true));
+        verify(securityPersonMock).notifyLotFull();
     }
 
     @Test
     public void shouldNotLetSecurityPersonKnowWhenLotIsNotFilled() {
         ParkingLot parkingLot = new ParkingLot(5);
-        SecurityPerson securityPerson = new SecurityPerson();
-        parkingLot.register(securityPerson);
+        SecurityPerson securityPersonMock = Mockito.mock(SecurityPerson.class);
+        parkingLot.register(securityPersonMock);
         Car car = new Car();
 
         boolean parked = parkingLot.park(car);
 
         assertThat(parked, is(true));
-        assertThat(securityPerson.isLotFull(), is(false));
+        verify(securityPersonMock, never()).notifyLotFull();
     }
 }
