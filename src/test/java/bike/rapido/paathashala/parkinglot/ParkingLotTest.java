@@ -1,6 +1,5 @@
 package bike.rapido.paathashala.parkinglot;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
