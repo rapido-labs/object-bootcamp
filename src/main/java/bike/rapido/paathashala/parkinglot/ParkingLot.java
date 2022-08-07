@@ -52,7 +52,18 @@ public class ParkingLot {
     }
 
     public boolean unpark(Car car) {
-        return parkedCars.remove(car);
+        boolean lotFullBeforeUnparking = isLotFull();
+        boolean unparked = parkedCars.remove(car);
+        if (unparked && lotFullBeforeUnparking) {
+            notifyAllObserversOnLotHasSpace();
+        }
+        return unparked;
+    }
+
+    private void notifyAllObserversOnLotHasSpace() {
+        for (ParkingLotObserver lotObserver : lotObservers) {
+            lotObserver.notifyLotHasSpace();
+        }
     }
 
     public void register(ParkingLotObserver observer) {
