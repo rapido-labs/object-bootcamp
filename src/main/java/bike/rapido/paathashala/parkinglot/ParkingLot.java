@@ -81,4 +81,8 @@ public class ParkingLot {
     public boolean isCarParked(Car car) {
         return parkedCars.contains(car);
     }
+
+    public Double getAvailabilityRatio() {
+        return (double)parkedCars.size() / capacity;
+    }
 }

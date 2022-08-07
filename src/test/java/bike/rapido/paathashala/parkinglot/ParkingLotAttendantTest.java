@@ -12,24 +12,28 @@ import static org.junit.Assert.assertTrue;
 
 public class ParkingLotAttendantTest {
     @Test
-    public void shouldParkCarInTheFirstAvailableLot() {
-        ParkingLot firstLot = new ParkingLot(1);
-        ParkingLot secondLot = new ParkingLot(2);
+    public void shouldParkCarsEvenlyAcrossParkingLots() {
+        ParkingLot firstLot = new ParkingLot(2);
+        ParkingLot secondLot = new ParkingLot(1);
+        ParkingLot thirdLot = new ParkingLot(1);
         ArrayList<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {
             {
                 add(firstLot);
                 add(secondLot);
+                add(thirdLot);
             }
         };
         ParkingLotAttendant attendee = new ParkingLotAttendant(parkingLots);
         Car firstCar = new Car();
         Car secondCar = new Car();
+        Car thirdCar = new Car();
         attendee.park(firstCar);
+        attendee.park(secondCar);
 
-        Optional<ParkingTicket> parkingTicket = attendee.park(secondCar);
+        Optional<ParkingTicket> parkingTicket = attendee.park(thirdCar);
 
         assertTrue(parkingTicket.isPresent());
-        assertThat(parkingTicket.get().getLotId(), is(secondLot.getId()));
+        assertThat(parkingTicket.get().getLotId(), is(thirdLot.getId()));
     }
 
     @Test

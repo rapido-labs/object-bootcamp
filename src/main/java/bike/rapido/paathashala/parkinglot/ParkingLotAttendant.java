@@ -1,6 +1,7 @@
 package bike.rapido.paathashala.parkinglot;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Optional;
 
 public class ParkingLotAttendant {
@@ -11,12 +12,17 @@ public class ParkingLotAttendant {
     }
 
     public Optional<ParkingTicket> park(Car car) {
-        for (ParkingLot parkingLot : parkingLots) {
-                int parkingLotId = parkingLot.getId();
-                if (parkingLot.park(car))
-                    return Optional.of(new ParkingTicket(parkingLotId));
-        }
+        ParkingLot parkingLot = getParkingLotBasisEvenParkingDistribution();
+        int parkingLotId = parkingLot.getId();
+        if (parkingLot.park(car))
+            return Optional.of(new ParkingTicket(parkingLotId));
+
         return Optional.empty();
+    }
+
+    private ParkingLot getParkingLotBasisEvenParkingDistribution() {
+        parkingLots.sort(Comparator.comparingDouble(ParkingLot::getAvailabilityRatio));
+        return parkingLots.get(0);
     }
 
     public boolean unPark(Car car) {
