@@ -7,7 +7,7 @@ public class ParkingTicket {
         this.parkingLotId = parkingLotId;
     }
 
-    public int getId() {
+    public int getLotId() {
         return parkingLotId;
     }
 }

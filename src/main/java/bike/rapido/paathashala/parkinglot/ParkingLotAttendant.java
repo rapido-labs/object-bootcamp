@@ -1,21 +1,22 @@
 package bike.rapido.paathashala.parkinglot;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
-public class Attendee {
+public class ParkingLotAttendant {
     private ArrayList<ParkingLot> parkingLots;
 
-    public Attendee(ArrayList<ParkingLot> parkingLots) {
+    public ParkingLotAttendant(ArrayList<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots;
     }
 
-    public ParkingTicket park(Car car) {
+    public Optional<ParkingTicket> park(Car car) {
         for (ParkingLot parkingLot : parkingLots) {
             if(parkingLot.hasFreeSlots()){
                 if(parkingLot.park(car))
-                return new ParkingTicket(parkingLot.getId());
+                return Optional.of(new ParkingTicket(parkingLot.getId()));
             }
         }
-        return null;
+      return Optional.empty();
     }
 }
