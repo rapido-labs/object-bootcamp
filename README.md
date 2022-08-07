@@ -34,3 +34,11 @@ As a parking lot Owner
 I want to know when the parking lot has space again 
 So that I can take in the full sign 
 ```
+
+### Chapter 6
+
+```
+As a parking lot owner
+I want a parking attendant to park cars 
+So that he can make decisions on which parking lot to park in
+```

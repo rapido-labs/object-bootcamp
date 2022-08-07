@@ -3,17 +3,21 @@ package bike.rapido.paathashala.parkinglot;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 
 public class ParkingLot {
 
     private final HashSet<Car> parkedCars;
     private final List<ParkingLotObserver> lotObservers;
+    private final int id;
+    Random random = new Random();
 
     private final int capacity;
 
     public ParkingLot(int capacity) {
         parkedCars = new HashSet<>(capacity);
         lotObservers = new ArrayList<>();
+        id = random.nextInt() ;
 
         this.capacity = capacity;
     }
@@ -47,7 +51,7 @@ public class ParkingLot {
         return !hasFreeSlots();
     }
 
-    private boolean hasFreeSlots() {
+    public boolean hasFreeSlots() {
         return parkedCars.size() < capacity;
     }
 
@@ -68,5 +72,9 @@ public class ParkingLot {
 
     public void register(ParkingLotObserver observer) {
         lotObservers.add(observer);
+    }
+
+    public int getId() {
+        return id;
     }
 }
