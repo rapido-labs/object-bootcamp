@@ -12,11 +12,9 @@ public class ParkingLotAttendant {
 
     public Optional<ParkingTicket> park(Car car) {
         for (ParkingLot parkingLot : parkingLots) {
-            if (parkingLot.hasFreeSlots()) {
                 int parkingLotId = parkingLot.getId();
                 if (parkingLot.park(car))
                     return Optional.of(new ParkingTicket(parkingLotId));
-            }
         }
         return Optional.empty();
     }
