@@ -33,9 +33,9 @@ public class ParkingLotAttendantTest {
     }
 
     @Test
-    public void shouldNotAllowToParkIfAllLotsAreFull() {
+    public void shouldNotAllowToParkCarIfAllLotsAreFull() {
         ParkingLot firstLot = new ParkingLot(1);
-        ParkingLot secondLot = new ParkingLot(1);
+            ParkingLot secondLot = new ParkingLot(1);
         ArrayList<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {
             {
                 add(firstLot);
@@ -51,6 +51,35 @@ public class ParkingLotAttendantTest {
         Optional<ParkingTicket> parkingTicket = attendee.park(new Car());
 
         assertFalse(parkingTicket.isPresent());
+    }
+
+    @Test
+    public void shouldAllowCarToBeUnParkedFromParkingLotWhenPresent() {
+        ParkingLot firstLot = new ParkingLot(1);
+        ArrayList<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {
+            {add(firstLot);}};
+        ParkingLotAttendant attendee = new ParkingLotAttendant(parkingLots);
+        Car firstCar = new Car();
+        attendee.park(firstCar);
+
+        boolean isUnParked = attendee.unPark(firstCar);
+
+        assertTrue(isUnParked);
+    }
+
+    @Test
+    public void shouldNotAllowCarToBeUnParkedFromParkingLotWhenNotPresent() {
+        ParkingLot firstLot = new ParkingLot(1);
+        ParkingLot secondLot = new ParkingLot(1);
+        ArrayList<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {
+            {add(firstLot);
+            add(secondLot);}};
+        ParkingLotAttendant attendee = new ParkingLotAttendant(parkingLots);
+        Car firstCar = new Car();
+
+        boolean isUnParked = attendee.unPark(firstCar);
+
+        assertFalse(isUnParked);
     }
 }
 

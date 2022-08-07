@@ -42,3 +42,11 @@ As a parking lot owner
 I want a parking attendant to park cars 
 So that he can make decisions on which parking lot to park in
 ```
+
+### Chapter 7
+
+```
+As a parking lot owner
+I want a parking attendant to unpark cars
+So that he can make decisions on which parking lot to unpark from
+```

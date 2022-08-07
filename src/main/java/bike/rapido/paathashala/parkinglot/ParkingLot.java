@@ -77,4 +77,8 @@ public class ParkingLot {
     public int getId() {
         return id;
     }
+
+    public boolean isCarParked(Car car) {
+        return parkedCars.contains(car);
+    }
 }
